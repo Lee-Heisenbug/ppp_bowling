@@ -18,7 +18,7 @@ test( 'test one throw', () => {
 
 } )
 
-test( 'test two throws no mark', () => {
+test( 'test 2 throws no mark', () => {
 
     let g = new Game();
 
@@ -28,3 +28,19 @@ test( 'test two throws no mark', () => {
     expect( g.score() ).toBe( 9 );
 
 } )
+
+test( 'test 4 throws no mark', () => {
+
+    let g = new Game();
+
+    g.add( 5 );
+    g.add( 4 );
+    g.add( 7 );
+    g.add( 2 );
+
+    expect( g.score() ).toBe( 18 );
+    expect( g.scoreForFrame( 1 ) ).toBe( 9 );
+    expect( g.scoreForFrame( 2 ) ).toBe( 18 );
+
+} )
+

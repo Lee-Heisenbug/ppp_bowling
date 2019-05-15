@@ -13,6 +13,15 @@ class Game {
     }
 
     /**
+     * @param { number } frame 
+     */
+    scoreForFrame( frame ) {
+
+        return 0;
+
+    }
+
+    /**
      * @param { number } pins 
      */
     add( pins ) {
