@@ -3,6 +3,7 @@ class Game {
     constructor() {
 
         this._itsScore = 0;
+        this._itsThrows = [];
 
     }
 
@@ -17,7 +18,16 @@ class Game {
      */
     scoreForFrame( frame ) {
 
-        return 0;
+        let score = 0;
+        let ballsPerFrame = 2;
+
+        for( let ball = 0; ball < frame * ballsPerFrame; ++ball ) {
+
+            score += this._itsThrows[ ball ];    
+
+        }
+
+        return score;
 
     }
 
@@ -26,6 +36,7 @@ class Game {
      */
     add( pins ) {
 
+        this._itsThrows.push( pins );
         this._itsScore += pins;
 
     }
