@@ -23,7 +23,12 @@ class Game {
 
         for( let ball = 0; ball < frame * ballsPerFrame; ++ball ) {
 
-            score += this._itsThrows[ ball ];    
+            score += this._itsThrows[ ball ];
+            if( score === 10 ) {
+
+                score += this._itsThrows[ ball + 1 ];
+
+            }
 
         }
 

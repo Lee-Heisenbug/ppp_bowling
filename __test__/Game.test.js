@@ -43,3 +43,23 @@ test( 'test 4 throws no mark', () => {
     expect( g.scoreForFrame( 2 ) ).toBe( 18 );
 
 } )
+
+test( 'test simple spare', () => {
+
+    g.add( 3 );
+    g.add( 7 );
+    g.add( 3 );
+    expect( g.scoreForFrame( 1 ) ).toBe( 13 );
+
+} )
+
+test( 'test simple frame after spare', () => {
+
+    g.add( 3 );
+    g.add( 7 );
+    g.add( 3 );
+    g.add( 2 );
+    expect( g.scoreForFrame( 1 ) ).toBe( 13 );
+    expect( g.scoreForFrame( 2 ) ).toBe( 18 );
+
+} )
