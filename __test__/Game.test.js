@@ -1,16 +1,20 @@
 import { Game } from '../src/Game';
 
-test( 'test no throws', () => {
+let g = new Game();
 
-    let g = new Game();
+beforeEach( () => {
+
+    g = new Game();
+
+} )
+
+test( 'test no throws', () => {
 
     expect( g.score() ).toBe( 0 );
 
 } )
 
 test( 'test one throw', () => {
-
-    let g = new Game();
 
     g.add( 5 );
 
@@ -20,8 +24,6 @@ test( 'test one throw', () => {
 
 test( 'test 2 throws no mark', () => {
 
-    let g = new Game();
-
     g.add( 5 );
     g.add( 4 );
 
@@ -30,8 +32,6 @@ test( 'test 2 throws no mark', () => {
 } )
 
 test( 'test 4 throws no mark', () => {
-
-    let g = new Game();
 
     g.add( 5 );
     g.add( 4 );
@@ -43,4 +43,3 @@ test( 'test 4 throws no mark', () => {
     expect( g.scoreForFrame( 2 ) ).toBe( 18 );
 
 } )
-
