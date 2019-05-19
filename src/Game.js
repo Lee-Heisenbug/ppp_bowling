@@ -102,6 +102,8 @@ class Game {
 
         }
 
+        this._itsCurrentFrame = Math.min( 11, this._itsCurrentFrame );
+
     }
 
     /**
