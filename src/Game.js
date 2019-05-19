@@ -4,6 +4,7 @@ class Game {
 
         this._itsScore = 0;
         this._itsThrows = [];
+        this._itsCurrentFrame = 0;
 
     }
 
@@ -43,6 +44,19 @@ class Game {
 
         this._itsThrows.push( pins );
         this._itsScore += pins;
+        this._ajustCurrentFrame();
+
+    }
+
+    _ajustCurrentFrame() {
+
+        this._itsCurrentFrame = Math.floor( this._itsThrows.length / 2 ) + 1;
+
+    }
+
+    getCurrentFrame() {
+
+        return this._itsCurrentFrame;
 
     }
 

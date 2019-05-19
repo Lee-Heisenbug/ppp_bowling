@@ -19,6 +19,7 @@ test( 'test one throw', () => {
     g.add( 5 );
 
     expect( g.score() ).toBe( 5 );
+    expect( g.getCurrentFrame() ).toBe( 1 );
 
 } )
 
@@ -28,6 +29,7 @@ test( 'test 2 throws no mark', () => {
     g.add( 4 );
 
     expect( g.score() ).toBe( 9 );
+    expect( g.getCurrentFrame() ).toBe( 2 );
 
 } )
 
@@ -41,6 +43,7 @@ test( 'test 4 throws no mark', () => {
     expect( g.score() ).toBe( 18 );
     expect( g.scoreForFrame( 1 ) ).toBe( 9 );
     expect( g.scoreForFrame( 2 ) ).toBe( 18 );
+    expect( g.getCurrentFrame() ).toBe( 3 );
 
 } )
 
