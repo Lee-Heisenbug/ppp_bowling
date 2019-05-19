@@ -53,6 +53,7 @@ test( 'test simple spare', () => {
     g.add( 7 );
     g.add( 3 );
     expect( g.scoreForFrame( 1 ) ).toBe( 13 );
+    expect( g.getCurrentFrame() ).toBe( 2 );
 
 } )
 
@@ -64,5 +65,6 @@ test( 'test simple frame after spare', () => {
     g.add( 2 );
     expect( g.scoreForFrame( 1 ) ).toBe( 13 );
     expect( g.scoreForFrame( 2 ) ).toBe( 18 );
+    expect( g.getCurrentFrame() ).toBe( 3 );
 
 } )
