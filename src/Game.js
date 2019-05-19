@@ -4,7 +4,8 @@ class Game {
 
         this._itsScore = 0;
         this._itsThrows = [];
-        this._itsCurrentFrame = 0;
+        this._itsCurrentFrame = 1;
+        this._firstThrow = true;
 
     }
 
@@ -44,13 +45,42 @@ class Game {
 
         this._itsThrows.push( pins );
         this._itsScore += pins;
-        this._ajustCurrentFrame();
+        this._ajustCurrentFrame( pins );
 
     }
 
-    _ajustCurrentFrame() {
+    /**
+     * @param { number } pins 
+     */
+    _ajustCurrentFrame( pins ) {
 
-        this._itsCurrentFrame = Math.floor( this._itsThrows.length / 2 ) + 1;
+        if( this._firstThrow ) {
+
+            if( this._isStrike( pins ) ) {
+
+                ++this._itsCurrentFrame;
+
+            } else {
+
+                this._firstThrow = false;
+
+            }
+
+        } else {
+
+            ++this._itsCurrentFrame;
+            this._firstThrow = true;
+
+        }
+
+    }
+
+    /**
+     * @param { number } pins 
+     */
+    _isStrike( pins ) {
+
+        return pins === 10;
 
     }
 
