@@ -16,25 +16,54 @@ class Game {
     }
 
     /**
-     * @param { number } frame 
+     * @param { number } theFrame 
      */
-    scoreForFrame( frame ) {
+    scoreForFrame( theFrame ) {
 
         let score = 0;
-        let ballsPerFrame = 2;
+        let firstBallInFrame = 0;
+        let nextBall = 0;
+        let next2thBall = 0;
 
-        for( let ball = 0; ball < frame * ballsPerFrame; ++ball ) {
+        for( let currentFrame = 1; currentFrame <= theFrame; ++currentFrame ) {
 
-            score += this._itsThrows[ ball ];
-            if( score === 10 ) {
+            nextBall = firstBallInFrame + 1;
+            next2thBall = firstBallInFrame + 2;
 
-                score += this._itsThrows[ ball + 1 ];
+            if( this._isStrike( this._itsThrows[ firstBallInFrame ] ) ) {
+
+                score += this._itsThrows[ firstBallInFrame ];
+                score += this._itsThrows[ nextBall ] + this._itsThrows[ next2thBall ];
+
+                ++firstBallInFrame;
+
+            } else {
+
+                score += this._itsThrows[ firstBallInFrame ] + this._itsThrows[ nextBall ];
+
+                if( this._isSpare( this._itsThrows[ firstBallInFrame ], this._itsThrows[ nextBall ] ) ) {
+
+                    score += this._itsThrows[ next2thBall ];
+
+                }
+
+                firstBallInFrame += 2;                
 
             }
 
         }
 
         return score;
+
+    }
+
+    /**
+     * @param { number } firstPins 
+     * @param { number } secondPins 
+     */
+    _isSpare( firstPins, secondPins ) {
+
+        return firstPins + secondPins === 10;
 
     }
 
