@@ -10,7 +10,7 @@ class Game {
 
     score() {
 
-        return this._itsScore;
+        return this.scoreForFrame( this.getCurrentFrame() - 1 );
 
     }
 

@@ -14,15 +14,6 @@ test( 'test no throws', () => {
 
 } )
 
-test( 'test one throw', () => {
-
-    g.add( 5 );
-
-    expect( g.score() ).toBe( 5 );
-    expect( g.getCurrentFrame() ).toBe( 1 );
-
-} )
-
 test( 'test 2 throws no mark', () => {
 
     g.add( 5 );
@@ -65,6 +56,7 @@ test( 'test simple frame after spare', () => {
     g.add( 2 );
     expect( g.scoreForFrame( 1 ) ).toBe( 13 );
     expect( g.scoreForFrame( 2 ) ).toBe( 18 );
+    expect( g.score() ).toBe( 18 )
     expect( g.getCurrentFrame() ).toBe( 3 );
 
 } )
