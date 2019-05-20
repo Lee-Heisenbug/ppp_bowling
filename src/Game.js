@@ -5,7 +5,8 @@ class Game {
         this._itsScore = 0;
         this._itsThrows = [];
         this._itsCurrentFrame = 1;
-        this._firstThrow = true;
+        this._firstThrowInFrame = true;
+        this._firstBallInFrame = 0;
 
     }
 
@@ -21,33 +22,27 @@ class Game {
     scoreForFrame( theFrame ) {
 
         let score = 0;
-        let firstBallInFrame = 0;
-        let nextBall = 0;
-        let next2thBall = 0;
+        this._firstBallInFrame = 0;
 
         for( let currentFrame = 1; currentFrame <= theFrame; ++currentFrame ) {
 
-            nextBall = firstBallInFrame + 1;
-            next2thBall = firstBallInFrame + 2;
+            if( this._isStrike() ) {
 
-            if( this._isStrike( this._itsThrows[ firstBallInFrame ] ) ) {
+                score += 10 + this._next2ThrowsForStrike();
 
-                score += this._itsThrows[ firstBallInFrame ];
-                score += this._itsThrows[ nextBall ] + this._itsThrows[ next2thBall ];
+                ++this._firstBallInFrame;
 
-                ++firstBallInFrame;
+            } else if( this._isSpare() ) {
+
+                score += 10 + this._nextThrowForSpare();
+
+                this._firstBallInFrame += 2;
 
             } else {
 
-                score += this._itsThrows[ firstBallInFrame ] + this._itsThrows[ nextBall ];
+                score += this._twoThrowsInframe();
 
-                if( this._isSpare( this._itsThrows[ firstBallInFrame ], this._itsThrows[ nextBall ] ) ) {
-
-                    score += this._itsThrows[ next2thBall ];
-
-                }
-
-                firstBallInFrame += 2;                
+                this._firstBallInFrame += 2;
 
             }
 
@@ -57,13 +52,51 @@ class Game {
 
     }
 
-    /**
-     * @param { number } firstPins 
-     * @param { number } secondPins 
-     */
-    _isSpare( firstPins, secondPins ) {
+    _isStrike() {
 
-        return firstPins + secondPins === 10;
+        return this._firstThrow() === 10;
+
+    }
+
+    _isSpare() {
+
+        return this._firstThrow() + this._nextThrow() === 10;
+
+    }
+
+    _next2ThrowsForStrike() {
+
+        return this._nextThrow() + this._next2thThrow();
+
+    }
+
+    _nextThrowForSpare() {
+
+        return this._next2thThrow();
+
+    }
+
+    _twoThrowsInframe() {
+
+        return this._firstThrow() + this._nextThrow();
+
+    }
+
+    _firstThrow() {
+
+        return this._itsThrows[ this._firstBallInFrame ];
+
+    }
+
+    _nextThrow() {
+
+        return this._itsThrows[ this._firstBallInFrame + 1 ];
+
+    }
+
+    _next2thThrow() {
+
+        return this._itsThrows[ this._firstBallInFrame + 2 ];
 
     }
 
@@ -83,35 +116,26 @@ class Game {
      */
     _ajustCurrentFrame( pins ) {
 
-        if( this._firstThrow ) {
+        if( this._firstThrowInFrame ) {
 
-            if( this._isStrike( pins ) ) {
+            if( pins === 10 ) { // strike
 
                 ++this._itsCurrentFrame;
 
             } else {
 
-                this._firstThrow = false;
+                this._firstThrowInFrame = false;
 
             }
 
         } else {
 
             ++this._itsCurrentFrame;
-            this._firstThrow = true;
+            this._firstThrowInFrame = true;
 
         }
 
         this._itsCurrentFrame = Math.min( 11, this._itsCurrentFrame );
-
-    }
-
-    /**
-     * @param { number } pins 
-     */
-    _isStrike( pins ) {
-
-        return pins === 10;
 
     }
 
