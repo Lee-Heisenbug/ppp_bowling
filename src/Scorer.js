@@ -24,7 +24,7 @@ class Scorer {
         let score = 0;
         this._firstBallInFrame = 0;
 
-        for( let currentFrame = 1; currentFrame <= theFrame; ++currentFrame ) {
+        for( let currentFrame = 0; currentFrame < theFrame; ++currentFrame ) {
 
             if( this._isStrike() ) {
 
