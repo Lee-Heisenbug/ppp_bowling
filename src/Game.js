@@ -4,7 +4,6 @@ class Game {
 
     constructor() {
 
-        this._itsScore = 0;
         this._itsCurrentFrame = 1;
         this._firstThrowInFrame = true;
         this._scorer = new Scorer();
@@ -17,7 +16,6 @@ class Game {
     add( pins ) {
 
         this._scorer.addThrow( pins );
-        this._itsScore += pins;
         this._ajustCurrentFrame( pins );
 
     }
