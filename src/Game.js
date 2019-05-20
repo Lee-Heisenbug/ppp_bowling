@@ -4,7 +4,7 @@ class Game {
 
     constructor() {
 
-        this._itsCurrentFrame = 1;
+        this._itsCurrentFrame = 0;
         this._firstThrowInFrame = true;
         this._scorer = new Scorer();
 
@@ -27,11 +27,7 @@ class Game {
 
         if( this._firstThrowInFrame ) {
 
-            if( pins === 10 ) { // strike
-
-                ++this._itsCurrentFrame;
-
-            } else {
+            if( this._ajustFrameForStrike( pins ) === false ) {
 
                 this._firstThrowInFrame = false;
 
@@ -39,14 +35,38 @@ class Game {
 
         } else {
 
-            ++this._itsCurrentFrame;
+            this._advanceFrame();
             this._firstThrowInFrame = true;
 
         }
 
-        this._itsCurrentFrame = Math.min( 11, this._itsCurrentFrame );
+    }
+
+    /**
+     * @param { number } pins 
+     * @returns { boolean }
+     */
+    _ajustFrameForStrike( pins ) {
+
+        if( pins === 10 ) {
+
+            this._advanceFrame();
+            return true;
+
+        } else {
+
+            return false;
+
+        }
 
     }
+
+    _advanceFrame() {
+
+        this._itsCurrentFrame = Math.min( 10, this._itsCurrentFrame + 1 );
+
+    }
+
 
     getCurrentFrame() {
 
@@ -56,7 +76,7 @@ class Game {
 
     score() {
 
-        return this.scoreForFrame( this.getCurrentFrame() - 1 );
+        return this.scoreForFrame( this._itsCurrentFrame );
 
     }
 
