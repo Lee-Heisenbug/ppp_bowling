@@ -25,52 +25,42 @@ class Game {
      */
     _ajustCurrentFrame( pins ) {
 
-        if( this._firstThrowInFrame ) {
+        if( this._lastBallInFrame( pins ) ) {
 
-            if( this._ajustFrameForStrike( pins ) === false ) {
-
-                this._firstThrowInFrame = false;
-
-            }
+            this._advanceFrame();
 
         } else {
 
-            this._advanceFrame();
-            this._firstThrowInFrame = true;
+            this._firstThrowInFrame = false;
 
         }
 
     }
 
     /**
-     * @param { number } pins 
+     * @param { number } pins
      * @returns { boolean }
      */
-    _ajustFrameForStrike( pins ) {
+    _lastBallInFrame( pins ) {
 
-        if( pins === 10 ) {
+        return this._strike( pins ) || !this._firstThrowInFrame;
 
-            this._advanceFrame();
-            return true;
+    }
 
-        } else {
+    /**
+     * @param { number } pins
+     * @returns { boolean }
+     */
+    _strike( pins ) {
 
-            return false;
-
-        }
+        return ( this._firstThrowInFrame && pins === 10 );
 
     }
 
     _advanceFrame() {
 
         this._itsCurrentFrame = Math.min( 10, this._itsCurrentFrame + 1 );
-
-    }
-
-
-    getCurrentFrame() {
-
-        return this._itsCurrentFrame;
+        this._firstThrowInFrame = true;
 
     }
 
