@@ -5,6 +5,7 @@ let g = new Game();
 beforeEach( () => {
 
     g = new Game();
+    new;
 
 } )
 
